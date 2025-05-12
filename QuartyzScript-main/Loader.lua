@@ -30,7 +30,7 @@ local GameList = {
 }
 
 -- 인증 키 설정
-local REQUIRED_KEY = "my-secret-key"  -- 원하는 인증 키를 설정
+local REQUIRED_KEY = "key"  -- 원하는 인증 키를 설정
 local userKey = getgenv().AuthCode or ""
 
 -- 인증 코드 확인

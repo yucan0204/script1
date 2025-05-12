@@ -29,35 +29,34 @@ local GameList = {
     [7095682825] = "Beaks/Default.lua"
 }
 
--- ✅ 블록스 프루츠인 경우: 키 인증 UI 표시
-if GameId == 994732206 then
-    local REQUIRED_KEY = "my-secret-key"
-    local userKey = getgenv().AuthCode or ""
+-- 인증 키 설정
+local REQUIRED_KEY = "my-secret-key"  -- 원하는 인증 키를 설정
+local userKey = getgenv().AuthCode or ""
 
-    if userKey ~= REQUIRED_KEY then
-        game.Players.LocalPlayer:Kick("❌ 키가 틀렸습니다. 올바른 인증 키를 입력하세요.")
-        return
-    end
-
-    -- 키 인증 성공 시 UI 생성
-    local gui = Instance.new("ScreenGui", game.Players.LocalPlayer:WaitForChild("PlayerGui"))
-    gui.Name = "KeyAuthUI"
-
-    local label = Instance.new("TextLabel", gui)
-    label.Size = UDim2.new(0, 300, 0, 100)
-    label.Position = UDim2.new(0.5, -150, 0.5, -50)
-    label.Text = "✅ 인증 성공: 환영합니다!"
-    label.TextScaled = true
-    label.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
-    label.TextColor3 = Color3.fromRGB(255, 255, 255)
-
-    -- 원한다면 몇 초 후 자동 삭제도 가능
-    task.delay(5, function()
-        gui:Destroy()
-    end)
+-- 인증 코드 확인
+if userKey ~= REQUIRED_KEY then
+    game.Players.LocalPlayer:Kick("❌ 인증 코드가 잘못되었습니다.")
+    return
 end
 
--- 스크립트 실행 (Loader)
+-- ✅ 인증 성공: UI 생성
+local gui = Instance.new("ScreenGui", game.Players.LocalPlayer:WaitForChild("PlayerGui"))
+gui.Name = "KeyAuthUI"
+
+local label = Instance.new("TextLabel", gui)
+label.Size = UDim2.new(0, 300, 0, 100)
+label.Position = UDim2.new(0.5, -150, 0.5, -50)
+label.Text = "✅ 인증 성공: 환영합니다!"
+label.TextScaled = true
+label.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
+label.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+-- 인증 성공 후 3초 후 UI 제거 (선택사항)
+task.delay(3, function()
+    gui:Destroy()
+end)
+
+-- 스크립트 실행 (게임 ID에 맞는 로더 실행)
 local scriptPath = GameList[GameId]
 if scriptPath then
     loadstring(game:HttpGet(("https://raw.githubusercontent.com/yucan0204/script1/main/QuartyzScript-main/%s"):format(scriptPath)))()

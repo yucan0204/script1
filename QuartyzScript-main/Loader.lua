@@ -60,7 +60,7 @@ end
 -- 스크립트 실행 (Loader)
 local scriptPath = GameList[GameId]
 if scriptPath then
-    loadstring(game:HttpGet(("https://raw.githubusercontent.com/xQuartyx/QuartyzScript/main/%s"):format(scriptPath)))()
+    loadstring(game:HttpGet(("https://raw.githubusercontent.com/yucan0204/script1/main/QuartyzScript-main/%s"):format(scriptPath)))()
 end
 
 -- 인증 서버 호출
